@@ -20,7 +20,7 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] != '%')
 		{
-			put_char(va_arg(args, int));
+			put_char(format[i]);
 		}
 		else if (format[i] == '%')
 		{
@@ -28,15 +28,12 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 				{
-					int x = va_arg(args, int);
-
-					put_char(x);
+					put_char(va_arg(args, int));
 					break;
 				}
 				case 's':
 				{
 					str_nofb = putstr(va_arg(args, char*));
-					i++;
 					nofb = (nofb + str_nofb - 1);
 
 					break;
@@ -48,13 +45,14 @@ int _printf(const char *format, ...)
 				}
 				default:
 				{
-					put_char(format[i + 1]);
+					put_char(format[i]);
 					break;
 				}
 			}
+			i += 1;
 			nofb++;
 		}
 	}
 	va_end(args);
-	return (0);
+	return (nofb);
 }
