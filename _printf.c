@@ -4,7 +4,7 @@
  * @format: character string
  * Return: return int
  */
-int _printf(const char *format, ...);
+int _printf(const char *format, ...)
 {
 	int i = 0, nofb = 0, str_nofb;
 	av_list args;
