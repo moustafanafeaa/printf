@@ -7,7 +7,7 @@
 int _printf(const char *format, ...)
 {
 	int i = 0, nofb = 0, str_nofb;
-	av_list args;
+	va_list args;
 
 	if (format == NULL)
 		return (-1);
