@@ -6,51 +6,37 @@
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, nofb = 0, str_nofb;
+	int i = 0, nofb = 0;
 	va_list args;
 
-	if (format == NULL)
+	if (format == NULL || (format[0] == '%' && !format[1]))
 		return (-1);
-	if (format[0] == '%' && !format[1])
-		return (-1);
-
 	va_start(args, format);
-
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
 		{
 			put_char(format[i]);
+			nofb += 1;
 		}
-		else if (format[i] == '%')
+		else
 		{
-			switch (format[i + 1])
+			if (format[i + 1] == 's')
 			{
-				case 'c':
-				{
-					put_char(va_arg(args, int));
-					break;
-				}
-				case 's':
-				{
-					str_nofb = putstr(va_arg(args, char*));
-					nofb = (nofb + str_nofb - 1);
+				char *str = va_arg(args, char*);
 
-					break;
-				}
-				case '%':
-				{
-					put_char('%');
-					break;
-				}
-				default:
-				{
-					put_char(format[i]);
-					break;
-				}
+				nofb += putstr(str);
 			}
-			i += 1;
-			nofb++;
+			else if (format[i + 1] == 'c')
+				nofb +=  put_char(va_arg(args, int));
+			else if (format[i + 1] == 'i' || format[i + 1] == 'd')
+				nofb += _putint(va_arg(args, int));
+			else if (format[i + 1] == '%')
+			{
+				put_char('%');
+				nofb += 1;
+			}
+			i++;
 		}
 	}
 	va_end(args);
