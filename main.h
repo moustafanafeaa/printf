@@ -8,6 +8,6 @@
 int _printf(const char *format, ...);
 int put_char(char c);
 int putstr(char *c);
-int _putint(int num);
+int putinteger(int integer)
 
 #endif
