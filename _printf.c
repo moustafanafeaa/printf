@@ -30,7 +30,7 @@ int _printf(const char *format, ...)
 			else if (format[i + 1] == 'c')
 				nofb +=  put_char(va_arg(args, int));
 			else if (format[i + 1] == 'i' || format[i + 1] == 'd')
-				nofb += _putint(va_arg(args, int));
+				nofb += putinteger(va_arg(args, int));
 			else if (format[i + 1] == '%')
 			{
 				put_char('%');
