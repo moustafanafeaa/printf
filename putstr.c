@@ -17,5 +17,10 @@ int putstr(char *c)
 			put_char(c[index]);
 		}
 	}
+	else if (c)
+	{
+		putstr("(null)");
+		return (index);
+	}
 	return (index);
 }
